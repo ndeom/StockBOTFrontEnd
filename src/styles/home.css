@@ -1,0 +1,31 @@
+:root {
+  --background: rgb(15, 15, 15);
+}
+
+#homeTitle {
+  width: 100%;
+  text-align: center;
+}
+
+#homeContainer {
+  width: 50%;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+#playButton {
+  width: 100%;
+  height: 2.5rem;
+  border: 2px solid var(--background);
+  background-color: white;
+  border-radius: 5px;
+  font-size: 1.25rem;
+  color: var(--background);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+#playButton:hover {
+  background-color: var(--background);
+  color: white;
+}

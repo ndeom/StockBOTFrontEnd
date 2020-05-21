@@ -1,0 +1,46 @@
+:root {
+  --accent: rgb(87, 248, 72);
+  --background: rgb(15, 15, 15);
+}
+
+#chart {
+  background: var(--background);
+}
+
+#yAxis > .domain {
+  stroke-width: 0;
+}
+
+#yAxis > .tick line {
+  stroke-opacity: 0.5;
+  stroke-dasharray: 2;
+  stroke: var(--accent);
+}
+
+#yAxis > .tick text {
+  transform: translate(-980px, -8px);
+  fill: var(--accent);
+  font-size: 12px;
+}
+
+#xAxis > .domain,
+#xAxis > .tick line {
+  stroke: var(--accent);
+}
+
+#xAxis > .tick text {
+  fill: var(--accent);
+  font-size: 12px;
+}
+
+#path {
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#chartTitle {
+  fill: white;
+}
