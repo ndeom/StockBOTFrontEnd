@@ -3,8 +3,13 @@
   --background: rgb(15, 15, 15);
 }
 
+#chartContainer {
+  display: flex;
+}
+
 #chart {
   background: var(--background);
+  margin-bottom: 2rem;
 }
 
 #yAxis > .domain {
@@ -41,6 +46,245 @@
   stroke-linejoin: round;
 }
 
+#chartContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #chartTitle {
   fill: white;
+}
+
+.col {
+}
+
+#col1 {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 8;
+  height: 100%;
+}
+
+#col3 {
+  flex: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#controlsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#sliderLabel {
+  color: white;
+  transform: translateY(-30px);
+}
+
+#slideContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  width: 200px;
+  height: 75px;
+  color: white;
+  font-size: 1.25rem;
+  border-radius: 999px;
+  border: none;
+}
+
+.button:focus {
+  outline: 0;
+  box-shadow: 0;
+}
+
+#buyButton {
+  background-color: var(--accent);
+}
+
+#buyButton:focus {
+  animation: buy 400ms ease-out;
+}
+
+@keyframes buy {
+  0% {
+    background-color: var(--accent);
+  }
+  50% {
+    background-color: rgb(171, 255, 163);
+  }
+  100% {
+    background-color: var(--accent);
+  }
+}
+
+#sellButton {
+  background-color: red;
+}
+
+#sellButton:focus {
+  animation: sell 400ms ease-out;
+}
+
+@keyframes sell {
+  0% {
+    background-color: red;
+  }
+  50% {
+    background-color: rgb(255, 98, 98);
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+.dot {
+  fill: none;
+}
+
+.dot.playerBuy {
+  stroke: var(--accent);
+  fill: var(--accent);
+}
+
+.dot.playerSell {
+  stroke: red;
+  fill: red;
+}
+
+.dot.aiBuy {
+  stroke: var(--accent);
+}
+
+.dot.aiSell {
+  stroke: red;
+}
+
+/* Slider Bar Styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  margin: 18px 0;
+  width: 300px;
+  background-color: var(--background);
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: var(--accent);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: var(--accent);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -14px;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: var(--accent);
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type="range"]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: var(--accent);
+  cursor: pointer;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: var(--accent);
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type="range"]::-ms-fill-upper {
+  background: var(--accent);
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type="range"]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: var(--accent);
+  cursor: pointer;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: var(--accent);
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: var(--accent);
+}
+
+#resultsHTML {
+  position: absolute;
+  background-color: var(--background);
+  padding: 1rem;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid var(--accent);
+  color: white;
+  border-radius: 10px;
+  font-size: 1.5rem;
+}
+
+div#resultsTitle {
+  font-size: 2rem;
+  text-align: center;
 }

@@ -1,0 +1,37 @@
+#scoreboardContainer {
+  color: white;
+}
+
+.stats {
+  font-size: 1rem;
+}
+
+.statsText {
+  height: 2rem;
+}
+
+.statsGroup {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.statsText.time {
+  color: white;
+}
+
+.trendUp {
+  fill: rgb(87, 248, 72);
+}
+
+.trendDown {
+  fill: red;
+}
+
+.buy {
+  color: rgb(87, 248, 72);
+}
+
+.sell {
+  color: red;
+}

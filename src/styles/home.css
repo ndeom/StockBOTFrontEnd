@@ -26,6 +26,6 @@
 }
 
 #playButton:hover {
-  background-color: var(--background);
+  background-color: rgb(87, 248, 72);
   color: white;
 }

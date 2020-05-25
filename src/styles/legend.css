@@ -1,0 +1,30 @@
+#legendContainer {
+  color: white;
+}
+
+.legendRow {
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+}
+
+.svgCircle {
+  margin-right: 1rem;
+}
+
+#playerBuyLegend {
+  fill: rgb(87, 248, 72);
+}
+
+#playerSellLegend {
+  fill: red;
+}
+
+#aiBuyLegend {
+  stroke: rgb(87, 248, 72);
+  fill: none;
+}
+#aiSellLegend {
+  stroke: red;
+  fill: none;
+}

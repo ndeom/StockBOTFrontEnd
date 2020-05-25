@@ -30,7 +30,7 @@ function Home() {
         <li>May the best trader win!</li>
       </ol>
       <br></br>
-      <Link to="/play">
+      <Link to="/game">
         <button id="playButton">Play</button>
       </Link>
     </div>
