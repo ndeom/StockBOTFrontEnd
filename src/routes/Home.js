@@ -1,11 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
+import Robot from "../components/Robot.js";
 
 function Home() {
   return (
     <div id="homeContainer" className="routeContainer">
-      <h1 id="homeTitle">StockBOT</h1>
+      <div id="homeTitleContainer">
+        <Robot />
+        <h1 id="homeTitle">StockBOT</h1>
+      </div>
+
       <br></br>
       <p>
         Welcome to StockBOT! You will be pitted against a machine-learning
@@ -15,7 +20,7 @@ function Home() {
       <ol id="gameRules">
         <li>A random stock and year will be chosen when you press "Start."</li>
         <li>
-          The graph will start trending, and you can press "Buy" to purchse a
+          The graph will start trending, and you can press "Buy" to purchase a
           stock on the current date.
         </li>
         <li>

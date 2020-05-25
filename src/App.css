@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 .App {
   background-color: var(--background);
   height: 100vh;
@@ -6,4 +8,9 @@
   justify-content: center;
   align-items: center;
   color: var(--background);
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  font-family: "Roboto", sans-serif;
 }

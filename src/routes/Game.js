@@ -139,12 +139,12 @@ class Game extends React.Component {
       .attr("cx", (d) => x(d[0]))
       .attr("cy", (d) => y(d[1][0]));
 
-    const title = select(chart)
-      .append("text")
-      .attr("id", "chartTitle")
-      .attr("x", width / 2 - 60)
-      .attr("y", margin.top)
-      .text(`${stock}`);
+    //const title = select(chart)
+    //.append("text")
+    //.attr("id", "chartTitle")
+    //.attr("x", width / 2 - 60)
+    //.attr("y", margin.top)
+    //.text(`${stock[1]} (${stock[0]})`);
 
     // ADD ALL NECESSARY VARIABLES TO PASS AND THEN ADD
     // animateChart() TO componentDidUpdate()
@@ -238,8 +238,8 @@ class Game extends React.Component {
   createResults() {
     const wResults = 400;
     const hResults = 300;
-    const w = (window.innerWidth + window.outerWidth) / 2;
-    const h = (window.innerHeight + window.outerHeight) / 2;
+    const w = window.outerWidth; //(window.innerWidth + window.outerWidth) / 2;
+    const h = window.outerHeight; //(window.innerHeight + window.outerHeight) / 2;
     const centerHeight = (h - hResults) / 2;
     const centerWidth = (w - wResults) / 2;
 
@@ -282,18 +282,18 @@ class Game extends React.Component {
             elem.return = format(".2%")(elem.return);
             return elem;
           });
-        return `<div id="resultsTitle">Results:</div><br><br>
+        return `<div id="resultsTitle">Results:</div>
+          <hr>
            1. ${sorted[0].who}: ${sorted[0].return} <br>
            2. ${sorted[1].who}: ${sorted[1].return} <br>
-           3. ${sorted[2].who}: ${sorted[2].return}`;
+           3. ${sorted[2].who}: ${sorted[2].return} <br>
+           <button onclick="window.location.reload()" id="resultsButton">Play Again</button>`;
       })
       .attr("id", "resultsHTML")
-      .style("top", h * 2 + "px")
-      .style("left", centerWidth + "px")
+      .style("top", -centerHeight + "px")
       .transition()
       .duration(1000)
-      .style("top", centerHeight + "px")
-      .style("left", centerWidth + "px");
+      .style("top", centerHeight + "px");
   }
 
   handleClick(e) {
@@ -349,6 +349,9 @@ class Game extends React.Component {
           />
         </div>
         <div className="col" id="col2">
+          <h1 id="chartTitle">{`${
+            this.state.data ? this.state.data.stock[1] : ""
+          } (${this.state.data ? this.state.data.stock[0] : ""})`}</h1>
           <svg
             id="chart"
             ref={this.chartRef}
