@@ -9,7 +9,7 @@
 
 #chart {
   background: var(--background);
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 #yAxis > .domain {
@@ -90,11 +90,12 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 1rem;
 }
 
 #sliderLabel {
   color: white;
-  transform: translateY(-30px);
+  transform: translateY(-20px);
 }
 
 #slideContainer {

@@ -104,7 +104,7 @@ class Game extends React.Component {
     const chart = this.chartRef.current;
     const { data, stock } = this.state.data;
     const plotData = data.index.map((t, i) => [t, data.data[i]]);
-    const margin = { top: 50, right: 0, bottom: 50, left: 0 };
+    const margin = { top: 0, right: 0, bottom: 75, left: 0 };
     const width = 1000;
     const height = 600;
 
