@@ -1,11 +1,53 @@
+:root {
+  --main-bg: #040d14;
+  --orange-full-opacity: #ff5000;
+  --orange-secondary: rgba(255, 80, 0, 40%);
+  --orange-tertiary: rgba(255, 80, 0, 20%);
+  --off-white: #f0f4f6;
+  --card-grey: #40494e;
+  --alt-card-grey: #1e2124;
+  --green-full-opacity: #00c805;
+  --green-secondary: rgba(0, 200, 5, 40%);
+  --green-tertiary: rgba(0, 200, 5, 20%);
+}
+
 #legendContainer {
-  color: white;
+  color: var(--off-white);
+  background-color: var(--alt-card-grey);
+  border: 1px solid var(--card-grey);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.6),
+    0px -12px 24px rgba(0, 0, 0, 0.6);
+  width: 300px;
+  border-radius: 5px;
+  margin: 1.5rem 1rem;
+}
+
+#legendTitle {
+  text-align: left;
+  font-family: "Work Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 40px;
+  border-bottom: 1px solid var(--card-grey);
+  padding: 0 1.5rem;
+  margin: 0;
 }
 
 .legendRow {
   display: flex;
-  padding: 1rem;
+  padding: 0.5rem 1.5rem;
+  justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--card-grey);
+}
+
+.legendRow:nth-child(5) {
+  border-bottom: none;
+}
+
+.legendText {
+  font-size: 13px;
+  line-height: 20px;
 }
 
 .svgCircle {
@@ -13,18 +55,18 @@
 }
 
 #playerBuyLegend {
-  fill: rgb(87, 248, 72);
+  fill: var(--green-full-opacity);
 }
 
 #playerSellLegend {
-  fill: red;
+  fill: var(--orange-full-opacity);
 }
 
 #aiBuyLegend {
-  stroke: rgb(87, 248, 72);
-  fill: none;
+  stroke: var(--green-full-opacity);
+  fill: var(--green-tertiary);
 }
 #aiSellLegend {
-  stroke: red;
-  fill: none;
+  stroke: var(--orange-full-opacity);
+  fill: var(--orange-tertiary);
 }

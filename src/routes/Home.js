@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/home.css";
-import Robot from "../components/Robot.js";
+import RobotAlt from "../components/RobotAlt";
 
 function Home() {
   return (
     <div id="homeContainer" className="routeContainer">
       <div id="homeTitleContainer">
-        <Robot />
+        <RobotAlt />
         <h1 id="homeTitle">StockBOT</h1>
       </div>
 
@@ -32,8 +32,9 @@ function Home() {
           Once time has ended, you will be ranked alongside the machine-learning
           algorithm and the market.
         </li>
-        <li>May the best trader win!</li>
       </ol>
+      <br></br>
+      <p id="home-accent-paragraph">May the best trader win!</p>
       <br></br>
       <Link to="/game">
         <button id="playButton">Play</button>

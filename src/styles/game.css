@@ -1,15 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap");
+
 :root {
-  --accent: rgb(87, 248, 72);
-  --background: rgb(15, 15, 15);
+  --main-bg: #040d14;
+  --orange-full-opacity: #ff5000;
+  --orange-secondary: rgba(255, 80, 0, 40%);
+  --orange-tertiary: rgba(255, 80, 0, 20%);
+  --off-white: #f0f4f6;
+  --card-grey: #40494e;
+  --alt-card-grey: #1e2124;
+  --green-full-opacity: #00c805;
+  --green-secondary: rgba(0, 200, 5, 40%);
+  --green-tertiary: rgba(0, 200, 5, 20%);
 }
 
 #chartContainer {
   display: flex;
+  justify-content: center;
 }
 
 #chart {
-  background: var(--background);
-  padding-bottom: 2rem;
+  background: var(--main-bg);
 }
 
 #yAxis > .domain {
@@ -19,27 +30,29 @@
 #yAxis > .tick line {
   stroke-opacity: 0.5;
   stroke-dasharray: 2;
-  stroke: var(--accent);
+  stroke: var(--green-full-opacity);
 }
 
 #yAxis > .tick text {
-  transform: translate(-980px, -8px);
-  fill: var(--accent);
+  transform: translate(-880px, -8px);
+  fill: var(--green-full-opacity);
   font-size: 12px;
+  font-family: "Work Sans", sans-serif;
 }
 
 #xAxis > .domain,
 #xAxis > .tick line {
-  stroke: var(--accent);
+  stroke: var(--green-full-opacity);
 }
 
 #xAxis > .tick text {
-  fill: var(--accent);
+  fill: var(--green-full-opacity);
   font-size: 12px;
+  font-family: "Work Sans", sans-serif;
 }
 
 #path {
-  stroke: var(--accent);
+  stroke: var(--green-full-opacity);
   fill: none;
   stroke-width: 2;
   stroke-linecap: round;
@@ -54,32 +67,49 @@
   align-items: center;
 }
 
-#chartTitle {
-  color: white;
+#chart-title-container {
+  width: 890px;
+  margin-bottom: 1rem;
 }
 
-.col {
+#chartTitle {
+  color: var(--off-white);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+#chart-title-price {
+  color: var(--off-white);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+#chart-title-price-animated {
+  color: var(--off-white);
+  font-size: 1.5rem;
+  font-weight: 500;
+  overflow: hidden;
 }
 
 #col1 {
-  flex: 2;
+  flex: 0.33;
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   text-align: center;
+  padding: 0 2rem;
 }
 
 #col2 {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex: 8;
   height: 100%;
+  padding: 0 2rem;
 }
 
 #col3 {
-  flex: 2;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -87,15 +117,66 @@
 }
 
 #controlsContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
+  width: 890px;
   padding-bottom: 1rem;
 }
 
+.control-row {
+  height: 60px;
+  width: 890px;
+}
+
+#domain-toggle-list {
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#domain-toggle-list > li {
+  color: var(--off-white);
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+#domain-toggle-list > li:hover {
+  color: var(--green-full-opacity);
+}
+
+#domain-toggle-list > li.active-list {
+  position: relative;
+  color: var(--green-full-opacity);
+}
+
+.active-list:after {
+  content: "";
+  position: absolute;
+  background-color: var(--green-full-opacity);
+  left: 0;
+  bottom: -16px;
+  width: 100%;
+  height: 3px;
+}
+
+.control-row.two {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#domain-toggle-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+#domain-toggle-list > li {
+  margin-right: 1rem;
+}
+
 #sliderLabel {
-  color: white;
-  transform: translateY(-20px);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--off-white);
+  transform: translateY(-16px);
 }
 
 #slideContainer {
@@ -105,10 +186,11 @@
 }
 
 .button {
-  width: 200px;
-  height: 75px;
-  color: var(--background);
-  font-size: 1.25rem;
+  width: 150px;
+  height: 50px;
+  color: var(--main-bg);
+  font-size: 1.5rem;
+  font-weight: 700;
   border-radius: 999px;
   border: none;
 }
@@ -119,43 +201,27 @@
 }
 
 #buyButton {
-  background-color: var(--accent);
+  background-color: var(--green-secondary);
+  color: var(--green-full-opacity);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-#buyButton:focus {
-  animation: buy 400ms ease-out;
-}
-
-@keyframes buy {
-  0% {
-    background-color: var(--accent);
-  }
-  50% {
-    background-color: rgb(171, 255, 163);
-  }
-  100% {
-    background-color: var(--accent);
-  }
+#buyButton:hover {
+  background-color: var(--green-full-opacity);
+  color: var(--main-bg);
 }
 
 #sellButton {
-  background-color: red;
+  background-color: var(--orange-secondary);
+  color: var(--orange-full-opacity);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-#sellButton:focus {
-  animation: sell 400ms ease-out;
-}
-
-@keyframes sell {
-  0% {
-    background-color: red;
-  }
-  50% {
-    background-color: rgb(255, 98, 98);
-  }
-  100% {
-    background-color: red;
-  }
+#sellButton:hover {
+  background-color: var(--orange-full-opacity);
+  color: var(--main-bg);
 }
 
 .dot {
@@ -163,50 +229,52 @@
 }
 
 .dot.playerBuy {
-  stroke: var(--accent);
-  fill: var(--accent);
+  stroke: var(--green-full-opacity);
+  fill: var(--green-full-opacity);
 }
 
 .dot.playerSell {
-  stroke: red;
-  fill: red;
+  stroke: var(--orange-full-opacity);
+  fill: var(--orange-full-opacity);
 }
 
 .dot.aiBuy {
-  stroke: var(--accent);
+  stroke: var(--green-full-opacity);
+  fill: var(--green-tertiary);
 }
 
 .dot.aiSell {
-  stroke: red;
+  stroke: var(--orange-full-opacity);
+  fill: var(--orange-tertiary);
 }
 
 /* Slider Bar Styling */
 input[type="range"] {
   -webkit-appearance: none;
   margin: 18px 0;
-  width: 300px;
-  background-color: var(--background);
+  width: 200px;
+  background-color: var(--main-bg);
 }
 input[type="range"]:focus {
   outline: none;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 8.4px;
+  height: 5px;
   cursor: pointer;
   animate: 0.2s;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: var(--accent);
+  background: var(--green-full-opacity);
   border-radius: 1.3px;
   border: 0.2px solid #010101;
 }
 input[type="range"]::-webkit-slider-thumb {
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
   border: 1px solid #000000;
-  height: 36px;
-  width: 16px;
+  height: 30px;
+  width: 12px;
   border-radius: 3px;
-  background: var(--accent);
+  background: var(--green-full-opacity);
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -14px;
@@ -218,7 +286,7 @@ input[type="range"]::-moz-range-track {
   cursor: pointer;
   animate: 0.2s;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  background: var(--accent);
+  background: var(--green-full-opacity);
   border-radius: 1.3px;
   border: 0.2px solid #010101;
 }
@@ -228,7 +296,7 @@ input[type="range"]::-moz-range-thumb {
   height: 36px;
   width: 16px;
   border-radius: 3px;
-  background: var(--accent);
+  background: var(--green-full-opacity);
   cursor: pointer;
 }
 input[type="range"]::-ms-track {
@@ -242,13 +310,13 @@ input[type="range"]::-ms-track {
   color: transparent;
 }
 input[type="range"]::-ms-fill-lower {
-  background: var(--accent);
+  background: var(--green-full-opacity);
   border: 0.2px solid #010101;
   border-radius: 2.6px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
 }
 input[type="range"]::-ms-fill-upper {
-  background: var(--accent);
+  background: var(--green-full-opacity);
   border: 0.2px solid #010101;
   border-radius: 2.6px;
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
@@ -259,22 +327,20 @@ input[type="range"]::-ms-thumb {
   height: 36px;
   width: 16px;
   border-radius: 3px;
-  background: var(--accent);
+  background: var(--green-full-opacity);
   cursor: pointer;
 }
 input[type="range"]:focus::-ms-fill-lower {
-  background: var(--accent);
+  background: var(--green-full-opacity);
 }
 input[type="range"]:focus::-ms-fill-upper {
-  background: var(--accent);
+  background: var(--green-full-opacity);
 }
 
 #resultsHTML {
   position: absolute;
-  background-color: var(--background);
-  padding: 2rem;
-  width: 400px;
-  height: 300px;
+  background-color: var(--alt-card-grey);
+  width: 300px;
   margin-left: auto;
   margin-right: auto;
   left: 0;
@@ -283,32 +349,85 @@ input[type="range"]:focus::-ms-fill-upper {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--card-grey);
   color: white;
-  border-radius: 10px;
-  font-size: 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  z-index: 10;
+}
+
+#darken-on-results {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9;
 }
 
 div#resultsTitle {
-  font-size: 2rem;
-  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 40px;
+  padding: 0 1.5rem;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  line-height: 40px;
+  border-bottom: 1px solid var(--card-grey);
+  box-sizing: border-box;
 }
 
 #resultsHTML > hr {
   width: 250px;
-  border: 3px solid var(--accent);
+  border: 1px solid var(--card-grey);
   border-radius: 2px;
+  margin: 1rem 0;
+}
+
+#results-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+
+  border-bottom: 1px solid var(--card-grey);
+  font-size: 13px;
+}
+
+.player-name {
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.player-percent {
+  line-height: 20px;
 }
 
 #resultsButton {
-  width: 200px;
-  height: 75px;
-  color: var(--background);
+  width: 150px;
+  height: 50px;
+  color: var(--green-full-opacity);
   font-size: 1.25rem;
+  font-weight: 700;
   border-radius: 999px;
   border: none;
-  background: var(--accent);
-  margin-top: 1rem;
+  background: var(--green-secondary);
+  margin: 0.5rem;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+#resultsButton:hover {
+  background-color: var(--green-full-opacity);
+  color: var(--main-bg);
 }
 
 #resultsButton:focus {

@@ -9,6 +9,7 @@ import { axisBottom, axisRight } from "d3-axis";
 import * as d3Shape from "d3-shape";
 import { format } from "d3-format";
 import {} from "d3-transition";
+import { style } from "d3-selection";
 
 class Game extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Game extends React.Component {
       speed: 0.5,
       data: null,
       dataIndex: 0,
+      timeframe: "ALL",
       dataTime: "",
       dataPrice: "",
       previousPrice: "",
@@ -42,6 +44,7 @@ class Game extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleSlide = this.handleSlide.bind(this);
     this.createResults = this.createResults.bind(this);
+    this.handleLowerBoundChange = this.handleLowerBoundChange.bind(this);
     this.chartRef = React.createRef();
   }
 
@@ -104,14 +107,20 @@ class Game extends React.Component {
     const chart = this.chartRef.current;
     const { data, stock } = this.state.data;
     const plotData = data.index.map((t, i) => [t, data.data[i]]);
-    const margin = { top: 0, right: 0, bottom: 75, left: 0 };
-    const width = 1000;
-    const height = 600;
+    const margin = { top: 0, right: 0, bottom: 60, left: 0 };
+    const width = 890;
+    const height = 500;
 
     // Create axes for chart
-    const x = scaleUtc().range([margin.left, width - margin.right]);
+    const x = scaleUtc().range([
+      margin.left,
+      width - margin.right - margin.left,
+    ]);
 
-    const y = scaleLinear().range([margin.top, height - margin.bottom]);
+    const y = scaleLinear().range([
+      margin.top,
+      height - margin.bottom - margin.top,
+    ]);
 
     const gx = select(chart)
       .append("g")
@@ -180,15 +189,37 @@ class Game extends React.Component {
     const plotData = data.index.map((t, i) => [t, data.data[i]]);
     const delay = (t) => new Promise((resolve) => setTimeout(resolve, t));
 
-    let i;
-
     //async function changeDomain() {
-    for (i = 0; i < plotData.length; i++) {
+    for (let i = 0; i < plotData.length; i++) {
       //Create transition
       //const transition = select(chart).transition().duration(400);
 
       //Adjust domain to current index
-      const currentDomain = plotData.slice(0, i + 1);
+      let lowerIndex;
+      switch (this.state.timeframe) {
+        case "ALL":
+          lowerIndex = 0;
+          break;
+        case "1D":
+          lowerIndex = i - 1;
+          break;
+        case "1W":
+          lowerIndex = i - 7;
+          break;
+        case "1M":
+          lowerIndex = i - 22;
+          break;
+        case "3M":
+          lowerIndex = i - 66;
+          break;
+        default:
+          lowerIndex = 0;
+          break;
+      }
+
+      console.log("lower index = ", lowerIndex);
+
+      const currentDomain = plotData.slice(lowerIndex, i + 1);
 
       this.setState((state) => {
         return {
@@ -199,7 +230,7 @@ class Game extends React.Component {
         };
       });
 
-      x.domain([min(plotData, (d) => d[0]), plotData[i][0]]);
+      x.domain([plotData[lowerIndex][0], plotData[i][0]]);
       y.domain([
         max(currentDomain, (d) => d[1][0]) + 5,
         min(currentDomain, (d) => d[1][0]) - 5,
@@ -236,8 +267,8 @@ class Game extends React.Component {
   }
 
   createResults() {
-    const wResults = 400;
-    const hResults = 300;
+    const wResults = 250;
+    const hResults = 250;
     const w = window.outerWidth; //(window.innerWidth + window.outerWidth) / 2;
     const h = window.outerHeight; //(window.innerHeight + window.outerHeight) / 2;
     const centerHeight = (h - hResults) / 2;
@@ -282,18 +313,30 @@ class Game extends React.Component {
             elem.return = format(".2%")(elem.return);
             return elem;
           });
-        return `<div id="resultsTitle">Results:</div>
-          <hr>
-           1. ${sorted[0].who}: ${sorted[0].return} <br>
-           2. ${sorted[1].who}: ${sorted[1].return} <br>
-           3. ${sorted[2].who}: ${sorted[2].return} <br>
-           <button onclick="window.location.reload()" id="resultsButton">Play Again</button>`;
+        return `<div id="resultsTitle">Results</div>
+          <ul id="results-list">
+            <li class="list-item">
+              <span class="player-name">1. ${sorted[0].who}</span> 
+              <span class="player-percent">${sorted[0].return}</span>
+            </li>
+            <li class="list-item">
+              <span class="player-name">2. ${sorted[1].who}</span> 
+              <span class="player-percent">${sorted[1].return}</span>
+            </li>
+            <li class="list-item">
+              <span class="player-name">3. ${sorted[2].who}</span> 
+              <span class="player-percent">${sorted[2].return}</span>
+            </li>
+          </ul>
+          <button onclick="window.location.reload()" id="resultsButton">Play Again</button>`;
       })
       .attr("id", "resultsHTML")
       .style("top", -centerHeight + "px")
       .transition()
       .duration(1000)
       .style("top", centerHeight + "px");
+
+    select("#root").append("div").attr("id", "darken-on-results");
   }
 
   handleClick(e) {
@@ -334,6 +377,45 @@ class Game extends React.Component {
     });
   }
 
+  handleLowerBoundChange(e) {
+    const currentIndex = this.state.dataIndex;
+    switch (e.target.textContent) {
+      case "ALL":
+        console.log("state set to ALL");
+        this.setState({ timeframe: "ALL" });
+        break;
+      case "1D":
+        if (currentIndex - 1 > 0) {
+          console.log("state set to 1D");
+          this.setState({ timeframe: "1D" });
+        }
+        break;
+
+      case "1W":
+        if (currentIndex - 5 > 0) {
+          console.log("state set to 1W");
+          this.setState({ timeframe: "1W" });
+        }
+        break;
+      case "1M":
+        if (currentIndex - 22 > 0) {
+          console.log("state set to 1M");
+          this.setState({ timeframe: "1M" });
+        }
+        break;
+      case "3M":
+        if (currentIndex - 66 > 0) {
+          console.log("state set to 3M");
+          this.setState({ timeframe: "3M" });
+        }
+        break;
+      default:
+        console.log("default chosen set to ALL");
+        this.setState({ timeframe: "ALL" });
+        break;
+    }
+  }
+
   render() {
     return (
       <div id="chartContainer">
@@ -347,51 +429,107 @@ class Game extends React.Component {
             aiBuys={this.state.aiBuys}
             aiSells={this.state.aiSells}
           />
+          <Legend />
         </div>
         <div className="col" id="col2">
-          <h1 id="chartTitle">{`${
-            this.state.data ? this.state.data.stock[1] : ""
-          } (${this.state.data ? this.state.data.stock[0] : ""})`}</h1>
+          <div id="chart-title-container">
+            <h2 id="chartTitle">{`${
+              this.state.data ? this.state.data.stock[1] : ""
+            } ${
+              this.state.data ? "(" + this.state.data.stock[0] + ")" : ""
+            }`}</h2>
+            <div id="chart-title-price">{`${
+              this.state.dataPrice
+                ? new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(this.state.dataPrice)
+                : ""
+            }`}</div>
+          </div>
+
           <svg
             id="chart"
             ref={this.chartRef}
-            width={"1000px"}
-            height={"600px"}
+            width={"890px"}
+            height={"500px"}
           ></svg>
           <div id="controlsContainer">
-            <button
-              onClick={this.handleClick}
-              id="buyButton"
-              className="button"
-            >
-              Buy
-            </button>
-            <div id="slideContainer">
-              <label for="slider" id="sliderLabel">
-                Speed
-              </label>
-              <input
-                onChange={this.handleSlide}
-                type="range"
-                min="0"
-                max="1"
-                step="0.1"
-                value={this.state.speed}
-                id="slider"
-              />
+            <div className="control-row one">
+              <ul id="domain-toggle-list">
+                <li
+                  id="1D-li"
+                  className={this.state.timeframe === "1D" ? "active-list" : ""}
+                  onClick={this.handleLowerBoundChange}
+                >
+                  1D
+                </li>
+                <li
+                  id="1W-li"
+                  className={this.state.timeframe === "1W" ? "active-list" : ""}
+                  onClick={this.handleLowerBoundChange}
+                >
+                  1W
+                </li>
+                <li
+                  id="1M-li"
+                  className={this.state.timeframe === "1M" ? "active-list" : ""}
+                  onClick={this.handleLowerBoundChange}
+                >
+                  1M
+                </li>
+                <li
+                  id="3M-li"
+                  className={this.state.timeframe === "3M" ? "active-list" : ""}
+                  onClick={this.handleLowerBoundChange}
+                >
+                  3M
+                </li>
+                <li
+                  id="ALL-li"
+                  className={
+                    this.state.timeframe === "ALL" ? "active-list" : ""
+                  }
+                  onClick={this.handleLowerBoundChange}
+                >
+                  ALL
+                </li>
+              </ul>
+              <hr></hr>
             </div>
-            <button
-              onClick={this.handleClick}
-              id="sellButton"
-              className="button"
-            >
-              Sell
-            </button>
+            <div className="control-row two">
+              <button
+                onClick={this.handleClick}
+                id="buyButton"
+                className="button"
+              >
+                Buy
+              </button>
+              <div id="slideContainer">
+                <label for="slider" id="sliderLabel">
+                  Speed
+                </label>
+                <input
+                  onChange={this.handleSlide}
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={this.state.speed}
+                  id="slider"
+                />
+              </div>
+              <button
+                onClick={this.handleClick}
+                id="sellButton"
+                className="button"
+              >
+                Sell
+              </button>
+            </div>
           </div>
         </div>
-        <div className="col" id="col3">
-          <Legend />
-        </div>
+        {/*<div className="col" id="col3"></div>*/}
       </div>
     );
   }

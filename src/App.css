@@ -1,16 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap");
 
+:root {
+  --main-bg: #040d14;
+  --orange-full-opacity: #ff5000;
+  --orange-secondary: rgba(255, 80, 0, 40%);
+  --orange-tertiary: rgba(255, 80, 0, 20%);
+  --off-white: #f0f4f6;
+  --card-grey: #40494e;
+  --green-full-opacity: #00c805;
+  --green-secondary: rgba(0, 200, 5, 40%);
+  --green-tertiary: rgba(0, 200, 5, 20%);
+}
 .App {
-  background-color: var(--background);
+  background-color: var(--main-bg);
   height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--background);
-  font-family: "Roboto", sans-serif;
+  color: var(--off-white);
+  font-family: "Work Sans", sans-serif;
 }
 
 button {
-  font-family: "Roboto", sans-serif;
+  font-family: "Work Sans", sans-serif;
 }

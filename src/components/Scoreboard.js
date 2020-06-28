@@ -10,35 +10,68 @@ function Scoreboard(props) {
   return (
     <div id="scoreboardContainer">
       <h1 id="scoreboardTitle">Stats</h1>
-      <h2 className="stats">Current Date</h2>
-      <div className="statsText time">{date.toString()}</div>
-      <h2 className="stats">Current Price</h2>
-      <div className="statsGroup">
-        <svg id="trendSVG" height="16" width="16">
-          <polygon
-            className={`${
-              props.price >= props.previousPrice ? "trendUp" : "trendDown"
-            }`}
-            points={`${
-              props.price >= props.previousPrice
-                ? "8,0 16,16 0,16"
-                : "0,0 16,0 8,16"
-            }`}
-          />
-        </svg>
-        <div className="statsText price">{props.price}</div>
+      <div className="scoreboard-row">
+        <span id="current-date" className="stats">
+          Current Date
+        </span>
+        <div className="statsText time">{date.toString()}</div>
       </div>
-      <h2 className="stats">Player Buy</h2>
-      <div className="statsText price buy">{props.playerBuys.price}</div>
-      <h2 className="stats">Player Sell</h2>
-      <div className="statsText price sell">{props.playerSells.price}</div>
-      <h2 className="stats">AI Buy</h2>
-      <div className="statsText price buy">
-        {props.time >= props.aiBuys.time ? props.aiBuys.price : ""}
+      <div className="scoreboard-row">
+        <span className="stats">Current Price</span>
+        <div className="statsGroup">
+          <div className="statsText price">
+            {props.price
+              ? `${new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(props.price)}`
+              : ""}
+          </div>
+        </div>
       </div>
-      <h2 className="stats">AI Sell</h2>
-      <div className="statsText price sell">
-        {props.time >= props.aiSells.time ? props.aiSells.price : ""}
+      <div className="scoreboard-row">
+        <span className="stats">Player Buy</span>
+        <div className="statsText price buy">
+          {props.playerBuys.price
+            ? `${new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(props.playerBuys.price)}`
+            : ""}
+        </div>
+      </div>
+      <div className="scoreboard-row">
+        <span className="stats">Player Sell</span>
+        <div className="statsText price sell">
+          {props.playerSells.price
+            ? `${new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(props.playerSells.price)}`
+            : ""}
+        </div>
+      </div>
+      <div className="scoreboard-row">
+        <span className="stats">AI Buy</span>
+        <div className="statsText price buy">
+          {props.aiBuys.price && props.time >= props.aiBuys.time
+            ? `${new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(props.aiBuys.price)}`
+            : ""}
+        </div>
+      </div>
+      <div className="scoreboard-row">
+        <span className="stats">AI Sell</span>
+        <div className="statsText price sell">
+          {props.aiSells.price && props.time >= props.aiSells.time
+            ? `${new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(props.aiSells.price)}`
+            : ""}
+        </div>
       </div>
     </div>
   );

@@ -1,41 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap");
+
 :root {
-  --background: rgb(15, 15, 15);
+  --main-bg: #040d14;
+  --orange-full-opacity: #ff5000;
+  --orange-secondary: rgba(255, 80, 0, 40%);
+  --orange-tertiary: rgba(255, 80, 0, 20%);
+  --off-white: #f0f4f6;
+  --card-grey: #40494e;
+  --alt-card-grey: #1e2124;
+  --green-full-opacity: #00c805;
+  --green-secondary: rgba(0, 200, 5, 40%);
+  --green-tertiary: rgba(0, 200, 5, 20%);
 }
 
 #homeTitleContainer {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  width: 100%;
+  padding-left: 5%;
+}
+
+#homeTitle {
+  font-weight: 500;
+  padding-left: 1rem;
 }
 
 #homeContainer {
   width: 50%;
-  background-color: white;
+  background-color: var(--alt-card-grey);
   padding: 2rem;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  border: 1px solid var(--card-grey);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.6),
+    0px -12px 24px rgba(0, 0, 0, 0.6);
+}
+
+#gameRules > li {
+  position: relative;
+}
+
+#gameRules > li:hover:before {
+  content: "#";
+  position: absolute;
+  left: -36px;
+  color: var(--orange-full-opacity);
+}
+
+#home-accent-paragraph {
+  color: var(--orange-full-opacity);
+  width: 100%;
 }
 
 #playButton {
-  width: 200px;
-  height: 75px;
-  border: 2px solid var(--background);
-  background-color: white;
+  width: 150px;
+  height: 50px;
+  background-color: var(--orange-tertiary);
   border-radius: 999px;
-  font-size: 1.25rem;
-  color: var(--background);
-  transition: background-color 0.4s ease, color 0.4s ease;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--orange-full-opacity);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border: none;
+  cursor: pointer;
 }
 
 #playButton:hover {
-  background-color: rgb(87, 248, 72);
+  background-color: var(--orange-full-opacity);
+  color: var(--main-bg);
 }
 
 #robotSVG {
+  width: 100px;
+  height: auto;
+}
+
+#robot-alt {
   width: 100px;
   height: auto;
 }
